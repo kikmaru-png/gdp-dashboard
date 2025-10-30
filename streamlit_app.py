@@ -61,7 +61,7 @@ def centroid_text(docs_as_feat_strings: List[str]) -> str:
     rep_terms = [vocab[i] for i in top_idx]
     return ' '.join(rep_terms)
 
-def extract_keyterms_pool(standards: List[str], top_k: int = 30) -> List[str]:
+def extract_keyterms_pool(standards: List[str], top_k: int = 25) -> List[str]:
     # 標準解群から、よく出る語(n-gram含む)をキータームとする
     all_feats = []
     for s in standards:
