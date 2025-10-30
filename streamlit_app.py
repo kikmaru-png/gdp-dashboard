@@ -3,6 +3,9 @@ import streamlit as st
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 import difflib
+import unicodedata, re, numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 
 def fuzzy_hit(key: str, text: str) -> bool:
     key = normalize_ja(key); text = normalize_ja(text)
@@ -47,14 +50,6 @@ W = {
     "specificity": 0.15, # 具体性（数値・指標など）
     "structure": 0.10    # 日本語/構成（箇条書き/接続詞など）
 }
-
-
-# 重要語句の抽出（簡易）：標準解から名詞っぽいキーフレーズを手動入力できる欄も用意
-st.markdown("### 重要語句（任意・カバレッジ判定に使用）")
-key_phrases_raw = st.text_input(
-    "カンマ区切りで入力（例：在庫管理, 部門間連携, 標準化, 指導体制）", value=""
-)
-key_phrases = [k.strip() for k in key_phrases_raw.split(",") if k.strip()]
 
 def tfidf_similarity(a: str, b: str) -> float:
     if not a.strip() or not b.strip():
@@ -129,8 +124,6 @@ if st.button("評価する", type="primary"):
 st.markdown("---")
 st.caption("© 学習支援MVP / 二次の実得点は公表採点のみが正です。標準解は著作権配慮のため再構築版を使用してください。")
 
-import unicodedata, re, numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
 
 def normalize_ja(s: str) -> str:
     if s is None:
