@@ -77,7 +77,23 @@ def reasoning_consistency(std, usr):
     # TF-IDF類似で代用（与件整合は本来与件テキストも必要）
     return tfidf_similarity(std, usr)
 
+# === 標準解（複数行を配列へ） ===
+standards_raw = st.text_area("標準解（改行で複数）", height=200)
+standards = [s.strip() for s in (standards_raw or "").splitlines() if s.strip()]
+
+# === 論点キーワード（改行で複数） ===
+keys_raw = st.text_area("論点キーワード（改行で複数）", height=120)
+keys = [k.strip() for k in (keys_raw or "").splitlines() if k.strip()]
+
+# === 受験者の解答 ===
+user_answer = st.text_area("あなたの解答", height=220)
+
 def headline_scores(standards: list[str], user_answer: str, keys: list[str]):
+    standards = standards or []
+    user_answer = user_answer or ""
+    keys = keys or []
+    # 以降、類似度・カバレッジなどの計算
+    
     # 題意整合（＝標準解との近さ；とりあえず best を採用）
     s_intent = best_or_centroid_similarity(user_answer, standards, mode="best")
     # 論点カバレッジ
