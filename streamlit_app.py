@@ -30,10 +30,6 @@ with st.sidebar:
     jirei = st.selectbox("事例", ["Ⅰ 組織人事", "Ⅱ マーケ", "Ⅲ 生産", "Ⅳ 財務", "カスタム"])
     q = st.text_input("設問（任意）", value="設問X：〜〜について、…を述べよ")
 
-st.subheader("標準解（統合・再構築版）")
-standards_raw = st.text_area("標準解（TAC/LEC/MMC等、改行で複数貼付）", height=200)
-standards = [s for s in (standards_raw or "").splitlines() if s.strip()]
-
 # 固定重み（スライダーは使わない）
 W = {
     "intent": 0.30,      # 題意整合（標準解との近さ）
