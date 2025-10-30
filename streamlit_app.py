@@ -34,14 +34,6 @@ st.subheader("標準解（統合・再構築版）")
 standards_raw = st.text_area("標準解（TAC/LEC/MMC等、改行で複数貼付）", height=200)
 standards = [s for s in (standards_raw or "").splitlines() if s.strip()]
 
-
-st.subheader("あなたの答案")
-user_answer = st.text_area(
-    "答案を貼り付け",
-    height=220,
-    placeholder="（ここに自分の解答を貼る）"
-)
-
 # 固定重み（スライダーは使わない）
 W = {
     "intent": 0.30,      # 題意整合（標準解との近さ）
@@ -106,6 +98,7 @@ def total_score(scores_tuple):
             W["structure"] * s_struct)
 
 col1, col2 = st.columns(2)
+
 user_answer = st.text_area("あなたの解答", height=220)
 
 if st.button("評価する", type="primary"):
